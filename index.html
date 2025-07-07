@@ -35,26 +35,26 @@
 
         /* Header */
         .navbar {
-            background: white;
-            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            background: linear-gradient(135deg, #000000, #333333);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.3);
             padding: 1rem 0;
         }
 
         .navbar-brand {
             font-size: 1.5rem;
             font-weight: 700;
-            color: var(--primary-blue) !important;
+            color: white !important;
         }
 
         .navbar-nav .nav-link {
-            color: var(--dark-text) !important;
+            color: white !important;
             font-weight: 500;
             margin: 0 1rem;
             transition: color 0.3s ease;
         }
 
         .navbar-nav .nav-link:hover {
-            color: var(--primary-blue) !important;
+            color: var(--accent-green) !important;
         }
 
         .logo-container {
@@ -181,9 +181,11 @@
         }
 
         .artwork-image img {
-            width: 25%;
-            height: 25%;
-            object-fit: cover;
+            max-width: 25%;
+            max-height: 25%;
+            width: auto;
+            height: auto;
+            object-fit: contain;
             transition: transform 0.3s ease;
         }
 
