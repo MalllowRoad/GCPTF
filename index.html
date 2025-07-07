@@ -59,8 +59,9 @@
 
         .logo-container {
             display: flex;
+            flex-direction: column;
             align-items: center;
-            gap: 1rem;
+            gap: 0.5rem;
         }
 
         /* Hero Section */
@@ -180,8 +181,8 @@
         }
 
         .artwork-image img {
-            width: 100%;
-            height: 100%;
+            width: 80%;
+            height: 80%;
             object-fit: cover;
             transition: transform 0.3s ease;
         }
@@ -322,7 +323,7 @@
     <nav class="navbar navbar-expand-lg navbar-light fixed-top">
         <div class="container">
             <div class="logo-container">
-                <img src="images/logo.png" alt="Total Fabrikation Logo" style="width: 50px; height: 50px; object-fit: contain;">
+                <img src="images/logo.png" alt="Total Fabrikation Logo" style="width: 80px; height: 80px; object-fit: contain;">
                 <a class="navbar-brand logo-font" href="#home">TOTAL FABRIKATION</a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
@@ -394,7 +395,7 @@
     
     <!-- Custom JS -->
     <script>
-        // Complete artwork list matching your EXACT uploaded files
+        // Complete artwork list matching your EXACT uploaded files (updated July 7, 2025)
         const artworkList = [
             "A Dog's Life.jpg",
             "A heart as Big as All Outdoors.jpg",
@@ -410,6 +411,7 @@
             "Cat with no legs.jpg",
             "Cesarean Birthday.jpg",
             "Chicken-Copter.jpg",
+            "ChickenCopter.jpg",
             "Chocolate Covered Cow.jpg",
             "Cotton Gandhi.jpg",
             "Cotton Gin.jpg",
@@ -460,14 +462,14 @@
             "New Deli.jpg",
             "New Jersey.jpg",
             "One Good Tern Deserves Another.jpg",
-            "Pavlovs 1st Mistake.jpg",
-            "Pavlovs Second Mistake.jpg",
-            "Pavlovs  3rd mistake.jpg",
-            "Pavlovs 4th Mistake.jpg",
+            "Pavlov's First Mistake.jpg",
+            "Pavlov's Second Mistake.jpg",
+            "Pavlov's 3rd mistake.jpg",
+            "Pavlov's 4th Mistake.jpg",
             "Pig in a Polka.jpg",
             "Pope-Cycle.jpg",
             "Portable Nuclear Powered Fork.jpg",
-            "Quadraplegic Dog.jpg",
+            "Quadriplegic Dog.jpg",
             "Rabbit in The Shape of a Cube.jpg",
             "Rabbit Punch.jpg",
             "Rabbit-Wagon.jpg",
@@ -485,7 +487,7 @@
             "Star is Born.jpg",
             "Stevie Wonder.jpg",
             "Teddy Bomb.jpg",
-            "Televison for the Blind.jpg",
+            "Television for the Blind.jpg",
             "Test tube Babies.jpg",
             "Tossed Salad.jpg",
             "Trojan Horse.jpg",
@@ -493,10 +495,8 @@
             "Tubas.jpg",
             "Two-Headed Screw.jpg",
             "Under-Water Lighter.jpg",
-            "Untitled-1.jpg",
             "Wind-Up House.jpg",
             "Wool Candy.jpg",
-            "WOOLCANDY.jpg",
             "Zorro.jpg"
         ];
 
