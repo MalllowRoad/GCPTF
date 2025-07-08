@@ -519,7 +519,7 @@
             "Le Swimming Poule.jpg",
             "Linda McCartney.jpg",
             "Lizard on a String Gun.jpg",
-            "LizardonRye.jpg",
+            "Lizard on Rye.jpg",
             "Lucille Ball.jpg",
             "Man with Cow Hat.jpg",
             "Marshall Arts.jpg",
@@ -544,7 +544,7 @@
             "Radio-Controlled Rat.jpg",
             "Rat Candy.jpg",
             "Rat Man.jpg",
-            "Ratsoup.jpg",
+            "Rat Soup.jpg",
             "Reuseable Champagne.jpg",
             "Saint Nick the Knife.jpg",
             "Serf and Turf.jpg",
@@ -568,7 +568,7 @@
             "Zorro.jpg"
         ];
 
-        // Categories based on your files
+        // Categories based on your files (updated names)
         const categories = {
             animals: [
                 "A Dog's Life",
@@ -595,7 +595,7 @@
                 "Le Swimming Poule",
                 "Linda McCartney",
                 "Lizard on a String Gun",
-                "LizardonRye",
+                "Lizard on Rye",
                 "Man with Cow Hat",
                 "Mercury Poisoned Fish",
                 "One Good Tern Deserves Another",
@@ -610,7 +610,7 @@
                 "Radio-Controlled Rat",
                 "Rat Candy",
                 "Rat Man",
-                "Ratsoup",
+                "Rat Soup",
                 "Severed Dog",
                 "Sir Issac Newt",
                 "Teddy Bomb",
@@ -676,7 +676,7 @@
                 "Killer Yo Yo",
                 "Knight not fit for a Dog",
                 "Le Chat Noir",
-                "LizardonRye",
+                "Lizard on Rye",
                 "Marshall Arts",
                 "Mercury Poisoned Fish",
                 "Midasizing",
@@ -716,17 +716,6 @@
 
         // Function to get filename from title
         function getFilename(title) {
-            // Handle special cases where the title doesn't match the filename exactly
-            const titleToFilename = {
-                "LizardonRye": "LizardonRye.jpg",
-                "Ratsoup": "Ratsoup.jpg",
-                "Chicken-Copter": "Chicken-Copter.jpg"
-            };
-            
-            if (titleToFilename[title]) {
-                return titleToFilename[title];
-            }
-            
             return title + '.jpg';
         }
 
@@ -861,3 +850,18 @@
                     });
                 }, {
                     threshold: 0.1,
+                    rootMargin: '0px 0px -50px 0px'
+                });
+
+                document.querySelectorAll('.artwork-card').forEach(card => {
+                    observer.observe(card);
+                });
+            }, 100);
+        }
+
+        // Load all artwork on page load
+        document.addEventListener('DOMContentLoaded', function() {
+            showAllArtwork();
+        });
+
+        // Smooth scrolling for navigation
