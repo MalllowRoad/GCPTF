@@ -234,58 +234,17 @@
             font-size: 0.8rem;
         }
 
-        /* Features Section */
-        .features {
-            padding: 80px 0;
-            background: white;
-        }
-
-        .feature-card {
-            text-align: center;
-            padding: 2rem;
-            height: 100%;
-        }
-
-        .feature-icon {
-            width: 80px;
-            height: 80px;
-            background: linear-gradient(45deg, #000000, #ffffff);
-            border-radius: 50%;
-            display: flex;
-            align-items: center;
-            justify-content: center;
-            margin: 0 auto 1.5rem;
-            font-size: 2rem;
+        /* Category indicator */
+        .category-badge {
+            position: absolute;
+            top: 10px;
+            left: 10px;
+            background: var(--primary-blue);
             color: white;
-        }
-
-        .feature-card h4 {
-            color: var(--primary-blue);
-            margin-bottom: 1rem;
-            font-weight: 600;
-        }
-
-        /* Contact Section */
-        .contact {
-            padding: 80px 0;
-            background: var(--dark-text);
-            color: white;
-        }
-
-        .contact h2 {
-            color: white;
-            margin-bottom: 2rem;
-        }
-
-        .contact-info {
-            font-size: 1.1rem;
-            line-height: 2;
-        }
-
-        .contact-info i {
-            color: var(--accent-green);
-            margin-right: 1rem;
-            width: 20px;
+            padding: 5px 10px;
+            border-radius: 15px;
+            font-size: 0.7rem;
+            font-weight: 500;
         }
 
         /* Footer */
@@ -294,21 +253,6 @@
             color: white;
             padding: 2rem 0;
             text-align: center;
-        }
-
-        .social-links {
-            margin-top: 1rem;
-        }
-
-        .social-links a {
-            color: white;
-            font-size: 1.5rem;
-            margin: 0 1rem;
-            transition: color 0.3s ease;
-        }
-
-        .social-links a:hover {
-            color: var(--accent-green);
         }
 
         /* Responsive Design */
@@ -322,12 +266,8 @@
             }
             
             .artwork-grid {
-                grid-template-columns: 1fr;
-                gap: 1.5rem;
-            }
-
-            .artwork-grid {
                 grid-template-columns: repeat(auto-fit, minmax(300px, 1fr));
+                gap: 1.5rem;
             }
         }
 
@@ -352,19 +292,6 @@
             object-fit: contain;
             border-radius: 10px;
             background: var(--light-bg);
-        }
-
-        /* Category indicator */
-        .category-badge {
-            position: absolute;
-            top: 10px;
-            left: 10px;
-            background: var(--primary-blue);
-            color: white;
-            padding: 5px 10px;
-            border-radius: 15px;
-            font-size: 0.7rem;
-            font-weight: 500;
         }
     </style>
 </head>
@@ -463,7 +390,7 @@
     
     <!-- Custom JS -->
     <script>
-        // Complete artwork list matching your EXACT uploaded files
+        // Complete artwork list
         const artworkList = [
             "A Dog's Life.jpg",
             "A heart as Big as All Outdoors.jpg",
@@ -568,7 +495,7 @@
             "Zorro.jpg"
         ];
 
-        // Categories based on your files (updated names)
+        // Categories
         const categories = {
             animals: [
                 "A Dog's Life",
@@ -707,24 +634,18 @@
             ]
         };
 
-        let currentCategory = 'all';
-
-        // Function to convert filename to display title
         function formatTitle(filename) {
             return filename.replace('.jpg', '').replace(/_/g, ' ');
         }
 
-        // Function to get filename from title
         function getFilename(title) {
             return title + '.jpg';
         }
 
-        // Function to get thumbnail filename
         function getThumbnailFilename(filename) {
             return filename.replace('.jpg', '_thumb.jpg');
         }
 
-        // Function to shuffle array (for random display)
         function shuffleArray(array) {
             const shuffled = [...array];
             for (let i = shuffled.length - 1; i > 0; i--) {
@@ -734,7 +655,6 @@
             return shuffled;
         }
 
-        // Function to create artwork card
         function createArtworkCard(filename, title, categoryName = '') {
             const thumbnailFilename = getThumbnailFilename(filename);
             return `
@@ -754,49 +674,37 @@
             `;
         }
 
-        // Function to show artwork in modal
         function showArtwork(filename, title) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalImage').src = `images/${filename}`;
             document.getElementById('modalImage').alt = title;
             
-            // Create Etsy shop URL (update with your actual Etsy shop URL)
             const etsyShopUrl = 'https://www.etsy.com/shop/TotalFabrikation';
             document.getElementById('modalShopLink').href = etsyShopUrl;
-            
-            // Still keep email option for custom requests
             document.getElementById('modalEmailLink').href = `mailto:info@totalfabrikation.com?subject=Interest in ${title}`;
             
             const modal = new bootstrap.Modal(document.getElementById('artworkModal'));
             modal.show();
         }
 
-        // Function to show all artwork (home page)
         function showAllArtwork() {
-            currentCategory = 'all';
             const gallery = document.getElementById('artworkGrid');
             gallery.innerHTML = '';
             
-            // Update titles
             document.getElementById('categoryTitle').textContent = 'All Artwork';
             document.getElementById('categorySubtitle').textContent = 'Browse our complete collection of unique designs';
             document.getElementById('categoryDescription').textContent = 'Unique T-Shirt Artwork Collection';
             
-            // Show shuffled artwork for home page
             const shuffledArtwork = shuffleArray(artworkList);
-            shuffledArtwork.forEach((filename, index) => {
+            shuffledArtwork.forEach((filename) => {
                 const title = formatTitle(filename);
                 gallery.innerHTML += createArtworkCard(filename, title);
             });
 
-            // Scroll to gallery
             document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
-            initializeCardAnimations();
         }
 
-        // Function to show category
         function showCategory(categoryKey) {
-            currentCategory = categoryKey;
             const gallery = document.getElementById('artworkGrid');
             gallery.innerHTML = '';
             
@@ -814,54 +722,23 @@
                 stuff: 'Objects, concepts, and things with clever wordplay'
             };
             
-            // Update titles
             const categoryName = categoryTitles[categoryKey];
             document.getElementById('categoryTitle').textContent = categoryName;
             document.getElementById('categorySubtitle').textContent = categoryDescriptions[categoryKey];
             document.getElementById('categoryDescription').textContent = categoryName + ' Collection';
             
-            // Show artwork in alphabetical order for categories
             const categoryArtwork = categories[categoryKey].sort();
             categoryArtwork.forEach(title => {
                 const filename = getFilename(title);
                 gallery.innerHTML += createArtworkCard(filename, title, categoryName);
             });
 
-            // Scroll to gallery
             document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
-            initializeCardAnimations();
         }
 
-        // Function to initialize card animations
-        function initializeCardAnimations() {
-            setTimeout(() => {
-                document.querySelectorAll('.artwork-card').forEach(card => {
-                    card.style.opacity = '0';
-                    card.style.transform = 'translateY(30px)';
-                    card.style.transition = 'opacity 0.6s ease, transform 0.6s ease';
-                });
-                
-                const observer = new IntersectionObserver(function(entries) {
-                    entries.forEach(entry => {
-                        if (entry.isIntersecting) {
-                            entry.target.style.opacity = '1';
-                            entry.target.style.transform = 'translateY(0)';
-                        }
-                    });
-                }, {
-                    threshold: 0.1,
-                    rootMargin: '0px 0px -50px 0px'
-                });
-
-                document.querySelectorAll('.artwork-card').forEach(card => {
-                    observer.observe(card);
-                });
-            }, 100);
-        }
-
-        // Load all artwork on page load
         document.addEventListener('DOMContentLoaded', function() {
             showAllArtwork();
         });
-
-        // Smooth scrolling for navigation
+    </script>
+</body>
+</html>
