@@ -301,7 +301,7 @@
         <div class="container">
             <div class="logo-container">
                 <img src="images/logo.png" alt="Total Fabrikation Logo" style="width: 240px; height: 240px; object-fit: contain;">
-                <a class="navbar-brand logo-font" href="#" onclick="showAllArtwork()">TOTAL FABRIKATION</a>
+                <a class="navbar-brand logo-font" href="#" onclick="showAllArtwork(true)">TOTAL FABRIKATION</a>
             </div>
             <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav">
                 <span class="navbar-toggler-icon"></span>
@@ -313,7 +313,7 @@
                             Categories
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
-                            <li><a class="dropdown-item" href="#" onclick="showAllArtwork()">All Artwork</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showAllArtwork(true)">All Artwork</a></li>
                             <li><hr class="dropdown-divider" style="border-color: #555;"></li>
                             <li><a class="dropdown-item" href="#" onclick="showCategory('animals')">Animals</a></li>
                             <li><a class="dropdown-item" href="#" onclick="showCategory('allpeople')">All People</a></li>
@@ -703,6 +703,8 @@
             modal.show();
         }
 
+        let isInitialLoad = true;
+
         function showLogo() {
             document.getElementById('modalTitle').textContent = 'Total Fabrikation Logo';
             document.getElementById('modalImage').src = 'images/logo.png';
@@ -716,7 +718,7 @@
             modal.show();
         }
 
-        function showAllArtwork() {
+        function showAllArtwork(userInitiated = false) {
             const gallery = document.getElementById('artworkGrid');
             gallery.innerHTML = '';
             
@@ -733,8 +735,8 @@
                 gallery.innerHTML += createArtworkCard(filename, title);
             });
 
-            // Only scroll on category change, not on page load
-            if (document.readyState === 'complete') {
+            // Only scroll if user initiated the action (not on page load)
+            if (userInitiated) {
                 document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
@@ -777,7 +779,7 @@
         }
 
         document.addEventListener('DOMContentLoaded', function() {
-            showAllArtwork();
+            showAllArtwork(false); // false = not user initiated, so no scrolling
         });
     </script>
 </body>
