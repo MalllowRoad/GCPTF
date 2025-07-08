@@ -315,10 +315,10 @@
                         <ul class="dropdown-menu" aria-labelledby="categoriesDropdown">
                             <li><a class="dropdown-item" href="#" onclick="showAllArtwork(true)">All Artwork</a></li>
                             <li><hr class="dropdown-divider" style="border-color: #555;"></li>
-                            <li><a class="dropdown-item" href="#" onclick="showCategory('animals')">Animals</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="showCategory('allpeople')">All People</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="showCategory('famouspeople')">Famous People</a></li>
-                            <li><a class="dropdown-item" href="#" onclick="showCategory('stuff')">Stuff</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showCategory('animals', true)">Animals</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showCategory('allpeople', true)">All People</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showCategory('famouspeople', true)">Famous People</a></li>
+                            <li><a class="dropdown-item" href="#" onclick="showCategory('stuff', true)">Stuff</a></li>
                         </ul>
                     </li>
                 </ul>
@@ -383,7 +383,7 @@
                 </div>
             </div>
         </div>
-    </div>
+    </footer>
 
     <!-- Bootstrap JS -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/bootstrap/5.3.0/js/bootstrap.bundle.min.js"></script>
@@ -634,6 +634,7 @@
             ]
         };
 
+        // Helper functions
         function formatTitle(filename) {
             return filename.replace('.jpg', '').replace(/_/g, ' ');
         }
@@ -655,6 +656,7 @@
             return shuffled;
         }
 
+        // Card creation functions
         function createArtworkCard(filename, title, categoryName = '') {
             const thumbnailFilename = getThumbnailFilename(filename);
             return `
@@ -690,6 +692,7 @@
             `;
         }
 
+        // Modal functions
         function showArtwork(filename, title) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalImage').src = `images/${filename}`;
@@ -702,8 +705,6 @@
             const modal = new bootstrap.Modal(document.getElementById('artworkModal'));
             modal.show();
         }
-
-        let isInitialLoad = true;
 
         function showLogo() {
             document.getElementById('modalTitle').textContent = 'Total Fabrikation Logo';
@@ -718,6 +719,7 @@
             modal.show();
         }
 
+        // Main display functions
         function showAllArtwork(userInitiated = false) {
             const gallery = document.getElementById('artworkGrid');
             gallery.innerHTML = '';
@@ -735,13 +737,13 @@
                 gallery.innerHTML += createArtworkCard(filename, title);
             });
 
-            // Only scroll if user initiated the action (not on page load)
+            // Only scroll if user initiated the action
             if (userInitiated) {
                 document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
             }
         }
 
-        function showCategory(categoryKey) {
+        function showCategory(categoryKey, userInitiated = false) {
             const gallery = document.getElementById('artworkGrid');
             gallery.innerHTML = '';
             
@@ -775,11 +777,15 @@
                 gallery.innerHTML += createArtworkCard(filename, title, categoryName);
             });
 
-            document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            // Only scroll if user initiated the action
+            if (userInitiated) {
+                document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
 
+        // Initialize page
         document.addEventListener('DOMContentLoaded', function() {
-            showAllArtwork(false); // false = not user initiated, so no scrolling
+            showAllArtwork(false); // false = not user initiated, no scrolling
         });
     </script>
 </body>
