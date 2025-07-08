@@ -674,6 +674,22 @@
             `;
         }
 
+        function createLogoCard() {
+            return `
+                <div class="artwork-card" onclick="showLogo()">
+                    <div class="artwork-image">
+                        <img src="images/logo.png" alt="Total Fabrikation Logo" style="max-width: 80%; max-height: 80%; object-fit: contain;">
+                        <div class="click-overlay">
+                            Click to View Full Size
+                        </div>
+                    </div>
+                    <div class="artwork-info">
+                        <h4 class="artwork-title">Total Fabrikation Logo</h4>
+                    </div>
+                </div>
+            `;
+        }
+
         function showArtwork(filename, title) {
             document.getElementById('modalTitle').textContent = title;
             document.getElementById('modalImage').src = `images/${filename}`;
@@ -687,6 +703,19 @@
             modal.show();
         }
 
+        function showLogo() {
+            document.getElementById('modalTitle').textContent = 'Total Fabrikation Logo';
+            document.getElementById('modalImage').src = 'images/logo.png';
+            document.getElementById('modalImage').alt = 'Total Fabrikation Logo';
+            
+            const etsyShopUrl = 'https://www.etsy.com/shop/TotalFabrikation';
+            document.getElementById('modalShopLink').href = etsyShopUrl;
+            document.getElementById('modalEmailLink').href = 'mailto:info@totalfabrikation.com?subject=Interest in Total Fabrikation Logo';
+            
+            const modal = new bootstrap.Modal(document.getElementById('artworkModal'));
+            modal.show();
+        }
+
         function showAllArtwork() {
             const gallery = document.getElementById('artworkGrid');
             gallery.innerHTML = '';
@@ -695,13 +724,19 @@
             document.getElementById('categorySubtitle').textContent = 'Browse our complete collection of unique designs';
             document.getElementById('categoryDescription').textContent = 'Unique T-Shirt Artwork Collection';
             
+            // Add logo card first
+            gallery.innerHTML += createLogoCard();
+            
             const shuffledArtwork = shuffleArray(artworkList);
             shuffledArtwork.forEach((filename) => {
                 const title = formatTitle(filename);
                 gallery.innerHTML += createArtworkCard(filename, title);
             });
 
-            document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
+            // Only scroll on category change, not on page load
+            if (document.readyState === 'complete') {
+                document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
+            }
         }
 
         function showCategory(categoryKey) {
@@ -727,13 +762,18 @@
             document.getElementById('categorySubtitle').textContent = categoryDescriptions[categoryKey];
             document.getElementById('categoryDescription').textContent = categoryName + ' Collection';
             
+            // Add logo card for Stuff category
+            if (categoryKey === 'stuff') {
+                gallery.innerHTML += createLogoCard();
+            }
+            
             const categoryArtwork = categories[categoryKey].sort();
             categoryArtwork.forEach(title => {
                 const filename = getFilename(title);
                 gallery.innerHTML += createArtworkCard(filename, title, categoryName);
             });
 
-            document.getElementById('gallery').scrollIntoView({ behavior: 'smooth' });
+            document.getElementById('gallery').scrollIntoView({ behavior: 'smooth', block: 'start' });
         }
 
         document.addEventListener('DOMContentLoaded', function() {
